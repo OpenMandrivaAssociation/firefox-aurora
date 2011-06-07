@@ -15,83 +15,82 @@
 %define release %mkrel 0
 %endif
 
-Summary:	Mozilla Firefox web browser
-Name:		firefox-%{firefox_channel}
-Version:	%{realver}
-Release:	%{release}
-License:	MPLv1+
-Group:		Networking/WWW
-Url:		http://www.firefox.com/
-Source0:	firefox-%{realver}.source.tar.bz2
+Summary:    Mozilla Firefox web browser
+Name:       firefox-%{firefox_channel}
+Version:    %{realver}
+Release:    %{release}
+License:    MPLv1+
+Group:      Networking/WWW
+Url:        http://www.firefox.com/
+Source0:    firefox-%{realver}.source.tar.bz2
 # Aurora releases has no signature
-#Source1:	%{SOURCE0}.asc
-Source4:	%{name}.desktop
-Source5:	firefox-searchengines-jamendo.xml
-Source6:	firefox-searchengines-exalead.xml
-Source8:	firefox-searchengines-askcom.xml
-Source9:	kde.js
-Patch1:		firefox-lang.patch
-Patch2:		firefox-vendor.patch
-Patch3:		firefox-disable-check-default-browser.patch
+Source4:    %{name}.desktop
+Source5:    firefox-searchengines-jamendo.xml
+Source6:    firefox-searchengines-exalead.xml
+Source8:    firefox-searchengines-askcom.xml
+Source9:    kde.js
+Patch1:     firefox-lang.patch
+Patch2:     firefox-vendor.patch
+Patch3:     firefox-disable-check-default-browser.patch
 # Removed for now
-Patch4:		firefox-kde.patch
-Patch41:	mozilla-kde.patch
+Patch4:     firefox-kde.patch
+Patch41:    mozilla-kde.patch
 # (OpenSuse) add patch to make firefox always use /usr/bin/firefox when "make firefox
 # the default web browser" is used fix mdv bug#58784
-Patch5:		firefox-3.6.3-appname.patch
+Patch5:     firefox-3.6.3-appname.patch
 
-BuildRequires:	gtk+2-devel
-BuildRequires:	libnspr-devel >= 4.8.7
-BuildRequires:	nss-devel
-BuildRequires:	nss-static-devel
-BuildRequires:	sqlite3-devel
-BuildRequires:	libproxy-devel
-BuildRequires:	libalsa-devel
-BuildRequires:	libiw-devel
-BuildRequires:	unzip
-BuildRequires:	zip
+BuildRequires:  gtk+2-devel
+BuildRequires:  libnspr-devel >= 4.8.7
+BuildRequires:  nss-devel
+BuildRequires:  nss-static-devel
+BuildRequires:  sqlite3-devel
+BuildRequires:  libproxy-devel
+BuildRequires:  libalsa-devel
+BuildRequires:  libiw-devel
+BuildRequires:  unzip
+BuildRequires:  zip
 #(tpg) older versions doesn't support apng extension
 %if %mdkversion > 201100
-BuildRequires:	libpng-devel >= 1.4.1
+BuildRequires:  libpng-devel >= 1.4.1
 %endif
-BuildRequires:	makedepend
-BuildRequires:	python
-BuildRequires:	valgrind
-BuildRequires:	rootcerts
-BuildRequires:	doxygen
-BuildRequires:	libgnome-vfs2-devel
-BuildRequires:	libgnome2-devel
-BuildRequires:	libgnomeui2-devel
-BuildRequires:	java-rpmbuild
-BuildRequires:	wget
-BuildRequires:	libnotify-devel
+BuildRequires:  makedepend
+BuildRequires:  python
+BuildRequires:  valgrind
+BuildRequires:  rootcerts
+BuildRequires:  doxygen
+BuildRequires:  libgnome-vfs2-devel
+BuildRequires:  libgnome2-devel
+BuildRequires:  libgnomeui2-devel
+BuildRequires:  java-rpmbuild
+BuildRequires:  wget
+BuildRequires:  libnotify-devel
 %if %mdkversion >= 201100
-BuildRequires:	cairo-devel >= 1.10
+BuildRequires:  cairo-devel >= 1.10
 %endif
-BuildRequires:	yasm
-BuildRequires:	mesagl-devel
-Provides:	webclient
-#Requires:	indexhtml
+BuildRequires:  yasm
+BuildRequires:  mesagl-devel
+Provides:   webclient
+#Requires:  indexhtml
 Requires:       xdg-utils
 %define ff_deps myspell-en_US nspluginwrapper
-Suggests:	%{ff_deps}
+Suggests:   %{ff_deps}
 
-#Requires:	mailcap
+#Requires:  mailcap
 
 #Conflicts with stable and beta firefox
-Conflicts:	firefox
+Conflicts:  firefox
 Conflicts:  firefox-beta
 
-BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
+BuildRoot:  %{_tmppath}/%{name}-%{version}-buildroot
 
 %description
 Mozilla Firefox is a web browser
 
-%package	devel
-Summary:	Development files for %{name}
-Group:		Development/Other
+%package    devel
+Summary:    Development files for %{name}
+Group:      Development/Other
 
-%description	devel
+%description    devel
 Files and macros mainly for building Firefox extensions.
 
 %prep
@@ -101,12 +100,6 @@ Files and macros mainly for building Firefox extensions.
 #%patch1 -p1 -b .lang rediff
 %patch2 -p1 -b .vendor
 %patch3 -p1 -b .defaultbrowser
-## KDE INTEGRATION
-# copy current files and patch them later to keep them in sync
-#%patch4 -p1 -b .kde
-#%patch41 -p1 -b .kdemoz
-# install kde.js
-#install -m 644 %{SOURCE9} browser/app/profile/kde.js
 
 # disabled for now, lets see!
 #%patch5 -p1 -b .appname
@@ -180,7 +173,7 @@ cp -rf %{_builddir}/obj/dist/firefox/* %{buildroot}%{mozillalibdir}
 %{__mkdir_p}  %{buildroot}%{_bindir}
 ln -sf %{mozillalibdir}/firefox %{buildroot}%{_bindir}/firefox
 
-# Create an own %_libdir/mozilla/plugins
+# Create an own libdir/mozilla/plugins
 %{__mkdir_p} %{buildroot}%{_libdir}/mozilla/plugins
 
 # (tpg) desktop entry
