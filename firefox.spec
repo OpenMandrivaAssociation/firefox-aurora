@@ -121,7 +121,6 @@ perl ./certdata.perl < /etc/pki/tls/mozilla/certdata.txt
 popd
 
 
-%{expand:%(echo "%%define lang_list %(echo $(cat %{_builddir}/mozilla-%{firefox_channel}/browser/locales/shipped-locales))")}
 
 %build
 
@@ -232,6 +231,10 @@ sed -i 's/@DISTRO_VALUE@//' %{buildroot}%{mozillalibdir}/searchplugins/exalead.x
 
 mkdir -p %{buildroot}%{_sys_macros_dir}
 cat <<FIN >%{buildroot}%{_sys_macros_dir}/%{name}.macros
+
+# expand lang_list from sources
+%{expand:%(echo "%%define lang_list %(echo $(cat %{_builddir}/mozilla-%{firefox_channel}/browser/locales/shipped-locales))")}
+
 # Macros from %{name} package
 %%firefox_major              %{major}
 %%firefox_version            %{realver}
