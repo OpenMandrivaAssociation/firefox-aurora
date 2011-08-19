@@ -1,5 +1,5 @@
 # Lookout for change the version number and the channel
-%define major 6
+%define major 8
 %define realver %{major}.0a2
 # (tpg) MOZILLA_FIVE_HOME
 %define mozillalibdir %{_libdir}/%{name}-%{realver}
@@ -119,7 +119,7 @@ popd
 
 # (gmoro) please dont enable all options by hand
 # we need to trust firefox defaults
-export MOZCONFIG=./mozconfig
+export MOZCONFIG=$PWD/mozconfig
 cat << EOF > $MOZCONFIG
 mk_add_options MOZILLA_OFFICIAL=1
 mk_add_options BUILD_OFFICIAL=1
@@ -226,7 +226,7 @@ mkdir -p %{buildroot}%{_sys_macros_dir}
 cat <<FIN >%{buildroot}%{_sys_macros_dir}/%{name}.macros
 
 # expand lang_list from sources
-%{expand:%(echo "%%define lang_list %(echo $(cat %{_builddir}/mozilla-%{firefox_channel}/browser/locales/shipped-locales))")}
+#%%{expand:%(echo "%%define lang_list %(echo $(cat %{_builddir}/mozilla-%{firefox_channel}/browser/locales/shipped-locales))")}
 
 # Macros from %{name} package
 %%firefox_major              %{major}
@@ -235,7 +235,7 @@ cat <<FIN >%{buildroot}%{_sys_macros_dir}/%{name}.macros
 %%firefox_pluginsdir         %{pluginsdir}
 %%firefox_appid              \{ec8030f7-c20a-464f-9b0e-13a3a9e97384\}
 %%firefox_extdir             %%(if [ "%%_target_cpu" = "noarch" ]; then echo %%{_datadir}/mozilla/extensions/%%{firefox_appid}; else echo %%{_libdir}/mozilla/extensions/%%{firefox_appid}; fi)
-%%firefox_shipped_lang       %{lang_list}
+#%%%firefox_shipped_lang       %{lang_list}
 FIN
 
 %post
