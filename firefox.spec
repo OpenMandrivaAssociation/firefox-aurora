@@ -1,5 +1,5 @@
 # Lookout for change the version number and the channel
-%define major 8
+%define major 9
 %define realver %{major}.0a2
 # (tpg) MOZILLA_FIVE_HOME
 %define mozillalibdir %{_libdir}/%{name}-%{realver}
