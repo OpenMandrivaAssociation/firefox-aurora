@@ -1,0 +1,12 @@
+--- mozilla/browser/app/profile/firefox.js.lang	2008-11-18 22:36:20.000000000 +0100
++++ mozilla/browser/app/profile/firefox.js	2008-12-17 16:32:02.000000000 +0100
+@@ -405,6 +405,9 @@
+ pref("intl.menuitems.alwaysappendaccesskeys","chrome://global/locale/intl.properties");
+ pref("intl.menuitems.insertseparatorbeforeaccesskeys","chrome://global/locale/intl.properties");
+ 
++// Use LANG environment variable to choose locale
++pref("intl.locale.matchOS", true);
++
+ // 0=lines, 1=pages, 2=history , 3=text size
+ #ifdef XP_MACOSX
+ // On OS X, if the wheel has one axis only, shift+wheel comes through as a
