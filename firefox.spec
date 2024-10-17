@@ -21,7 +21,7 @@ Version:    %{realver}
 Release:    %{release}
 License:    MPLv1+
 Group:      Networking/WWW
-Url:        http://www.firefox.com/
+Url:        https://www.firefox.com/
 Source0:    firefox-%{realver}.source.tar.bz2
 # Aurora releases has no signature
 Source4:    %{name}.desktop
